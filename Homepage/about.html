@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us - Bharat Constitution</title>
+
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
+  <!-- Google Fonts -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap');
+  </style>
+
+  <!-- Internal CSS -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #e6ecff, #ffffff);
+      color: #222;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(to right, #001f3f, #003366);
+      color: #fff;
+      padding: 30px 0 20px;
+      text-align: center;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3em;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding-bottom: 10px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #ffcc00;
+      text-shadow: 0 0 5px rgba(255,255,255,0.6);
+    }
+
+    .three-container {
+      position: relative;
+      height: auto;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #bgCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .about-section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 50px;
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .about-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8em;
+      color: #003366;
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .about-section h2::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: #003366;
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    .about-section p {
+      font-size: 1.15em;
+      line-height: 1.9;
+      color: #444;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    .highlight {
+      color: #003366;
+      font-weight: 600;
+    }
+
+    footer {
+      text-align: center;
+      background: linear-gradient(to right, #001f3f, #003366);
+      color: #fff;
+      padding: 25px 10px;
+      font-size: 0.95em;
+      box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Bharat Constitution</h1>
+    <nav> 
+      <ul>
+        <li><a href="project.html">Home</a></li>
+        <li><a href="quiz.html">Quizzes</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="three-container">
+    <canvas id="bgCanvas"></canvas>
+
+    <section class="about-section">
+      <h2>About Us</h2>
+      <p><span class="highlight">Bharat Constitution</span> is more than just a study tool — it’s a vision. Designed with care for UPSC aspirants, our platform brings the Indian Constitution to life through intuitive lessons, detailed analysis, and interactive experiences.</p>
+
+      <p>We believe that <strong>clarity, structure, and accessibility</strong> are the keys to mastering complex topics. That's why our lessons are not only rich in content but also easy to navigate and visually engaging — making learning not just effective, but enjoyable.</p>
+
+      <p>Every section is tailored to help you understand deeply, remember longer, and apply better. Whether you’re preparing for the <em>Prelims</em>, <em>Mains</em>, or <em>Interview</em>, we ensure that your foundation in Indian Polity is rock solid.</p>
+
+      <p>Join us on this journey where knowledge meets elegance. Let’s prepare smarter, not harder — with Bharat Constitution, the future is yours to shape. 🇮🇳</p>
+    </section>
+  </div>
+
+  <footer>
+    &copy; 2025 Bharat Constitution | Crafted with Purpose for UPSC Aspirants
+  </footer>
+
+  <!-- 3D Book Animation -->
+  <script>
+    const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bgCanvas'), alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+// Lighting Setup
+const light = new THREE.PointLight(0xffffff, 1, 100);
+light.position.set(5, 5, 5);
+scene.add(light);
+
+// Ambient light for softer illumination
+const ambientLight = new THREE.AmbientLight(0x404040);
+scene.add(ambientLight);
+
+// Book cover
+const coverGeometry = new THREE.BoxGeometry(3, 0.4, 4.5);
+const coverMaterial = new THREE.MeshStandardMaterial({ 
+    color: 0x2b3a67, 
+    metalness: 0.3, 
+    roughness: 0.6 
+});
+const book = new THREE.Mesh(coverGeometry, coverMaterial);
+scene.add(book);
+
+// Pages
+const pagesGeometry = new THREE.BoxGeometry(2.9, 0.38, 4.4);
+const pagesMaterial = new THREE.MeshStandardMaterial({ 
+    color: 0xf8f8f8, 
+    roughness: 0.9 
+});
+const pages = new THREE.Mesh(pagesGeometry, pagesMaterial);
+scene.add(pages);
+
+// Spine
+const spineGeometry = new THREE.BoxGeometry(0.2, 0.4, 4.5);
+const spineMaterial = new THREE.MeshStandardMaterial({ 
+    color: 0x1a2a57,
+    metalness: 0.5
+});
+const spine = new THREE.Mesh(spineGeometry, spineMaterial);
+spine.position.x = -1.5;
+scene.add(spine);
+
+camera.position.z = 7;
+
+function animate() {
+    requestAnimationFrame(animate);
+    
+    // Gentle rocking animation
+    book.rotation.y = Math.sin(Date.now() * 0.001) * 0.5;
+    book.rotation.x = Math.cos(Date.now() * 0.001) * 0.2;
+    
+    // Keep pages and spine aligned with cover
+    pages.rotation.copy(book.rotation);
+    spine.rotation.copy(book.rotation);
+    
+    renderer.render(scene, camera);
+}
+
+animate();
+
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+  </script>
+
+</body>
+</html>
